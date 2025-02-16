@@ -52,20 +52,24 @@ function updateMessage() {
 
 function handleClick(event) {
     const square = event.target;
-  
+
     if (!square.classList.contains("sqr")) 
         return;
-  
+
     const squareIndex = parseInt(square.id); 
-  
+
     if (board[squareIndex] !== "" || winner)
         return;
-  
+
     placePiece(squareIndex);
     checkForWinner();
-    render();
-    switchPlayerTurn(); // Ensure this is called after checking for winner
+
+    if (!winner) {
+        switchPlayerTurn(); 
+    }
+    render(); 
 }
+
 
 function placePiece(index) {
     board[index] = turn;
@@ -76,19 +80,16 @@ function checkForWinner() {
     winningCombos.forEach((combo) => {
       const [a, b, c] = combo;
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        winner = board[a]; // Set the winner to the current player's symbol
+        winner = board[a]; 
       }
     });
     console.log("Winner:", winner);
 }
 
 function switchPlayerTurn() {
-    if (!winner) {
-        turn = turn === "X" ? "O" : "X"; // Toggle turn
-        console.log("Turn:", turn);
-    }
+    turn = turn === "X" ? "O" : "X"; 
+    console.log("Turn:", turn);
 }
-
 /*----------------------------- Event Listeners -----------------------------*/
 
 squareEls.forEach(square => {
