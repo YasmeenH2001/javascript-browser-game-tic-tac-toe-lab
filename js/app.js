@@ -1,4 +1,3 @@
-
 /*-------------------------------- Constants --------------------------------*/
 const squareEls = document.querySelectorAll('.sqr'); 
 const messageEl = document.querySelector('#message'); 
@@ -65,6 +64,7 @@ function handleClick(event) {
     placePiece(squareIndex);
     checkForWinner();
     render();
+    switchPlayerTurn(); // Ensure this is called after checking for winner
 }
 
 function placePiece(index) {
@@ -84,7 +84,7 @@ function checkForWinner() {
 
 function switchPlayerTurn() {
     if (!winner) {
-        turn = turn === "X" ? "O" : "X";
+        turn = turn === "X" ? "O" : "X"; // Toggle turn
         console.log("Turn:", turn);
     }
 }
